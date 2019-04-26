@@ -9,21 +9,27 @@
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
- * Directory in which the API calls reside. Development calls will be routed to a different place to
+ * Directory in which the built-in API calls reside. Development calls will be routed to a different place to
  * avoid naming conflicts, in case both directories are deployed to the same domain.
  */
-const directory = isProduction ? 'api' : 'api-dev';
+const apidirectory = isProduction ? 'api' : 'api-dev';
+
+/**
+ * Location in which the API exists. Most deployments will use the local API, but this can be overridden to
+ * a remote server.
+ */
+const apiloc = process.env.API_URL ? process.env.API_URL : apidirectory;
 
 /**
  * Path to the environment configuration file, relative to the server root.
  */
-export const EnvironmentConfigPath = `/${directory}/environment`;
+export const EnvironmentConfigPath = `${apiloc}/environment`;
 
 /**
  * Path to the service that enables users to log in. Their details will be send here in a POST
  * request, and a JSON response is expected.
  */
-export const UserLoginPath = `/${directory}/login`;
+export const UserLoginPath = `${apiloc}/login`;
 
 /**
  * @see https://material-ui.com/customization/themes/
